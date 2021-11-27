@@ -5,6 +5,7 @@ import DataStructures: OrderedDict
 import LightGraphs as LG
 import MetaGraphs as MG
 import PoseComposition: Pose
+import PoseComposition as PC
 import Rotations
 import StaticArrays: SVector, StaticVector
 
