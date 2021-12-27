@@ -10,3 +10,6 @@ MetaGraphs = "626554b9-1ddb-594c-aa3c-2596fe9399a5"
 PoseComposition = "0a8ab332-79e8-43e0-a313-949ce1168071"
 Rotations = "6038ab10-8711-5258-84ad-4b1120ba62dc"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
+[compat]
+MetaGraphs = "0.6.8"
