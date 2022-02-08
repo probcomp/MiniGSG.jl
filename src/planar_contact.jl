@@ -177,7 +177,7 @@ function closestApproximatingContact(pose::Pose)::PlanarContact
     #     θ = 2 * atan(UnitQuaternion(orn).z, UnitQuaternion(orn).w)
     #
     # [1] https://math.stackexchange.com/questions/90081/quaternion-distance
-    angle = 2 * atan(q.z, q.w)
+    angle = 2 * atan(q.q.v3, q.q.s)
 
     slack = planarContactTo6DOF(PlanarContact(x, y, angle)) \ pose
     return PlanarContact(x, y, angle, slack)
