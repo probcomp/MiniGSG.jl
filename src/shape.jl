@@ -7,12 +7,8 @@ the coordinate frame of the box).
 
 There are six contact plane families, each zero-dimensional and consisting of a
 single contact plane:
-* `:left` (`x = -sizeX / 2`)
-* `:right` (`x = sizeX / 2`)
-* `:bottom` (`z = -sizeZ / 2`)
-* `:top` (`z = sizeZ / 2`)
-* `:back` (`y = -sizeY / 2`)
-* `:front` (`y = sizeY / 2`)
+
+
 
 Each contact plane's origin is at the center of the corresponding face.  For
 the orientations assigned to these contact planes, see the implementation of
@@ -30,17 +26,17 @@ function getContactPlane(box::Box, familyId::Symbol)::Pose
     sx = box.sizeX / 2
     sy = box.sizeY / 2
     sz = box.sizeZ / 2
-    if familyId == :top
+    if familyId == :back
         Pose(0, 0, sz, PC.IDENTITY_ORN)
-    elseif familyId == :bottom
+    elseif familyId == :front
         Pose(0, 0, -sz, rotateAroundAxis([1, 0, 0], π))
     elseif familyId == :left
         Pose(-sx, 0, 0, rotateAroundAxis([0, 1, 0], -π/2))
     elseif familyId == :right
         Pose(sx, 0, 0, rotateAroundAxis([0, 1, 0], π/2))
-    elseif familyId == :front
+    elseif familyId == :bottom
         Pose(0, sy, 0, rotateAroundAxis([1, 0, 0], -π/2))
-    elseif familyId == :back
+    elseif familyId == :top
         Pose(0, -sy, 0, rotateAroundAxis([1, 0, 0], π/2))
     else
         error("Invalid contact plane family $familyId")
@@ -48,3 +44,56 @@ function getContactPlane(box::Box, familyId::Symbol)::Pose
 end
 
 const BOX_SURFACE_IDS = [:top, :bottom, :left, :right, :front, :back]
+
+@kwdef struct BoxContainer <: Shape
+    sizeX::Real
+    sizeY::Real
+    sizeZ::Real
+end
+
+function getContactPlane(box::BoxContainer, familyId::Symbol)::Pose
+    sx = box.sizeX / 2
+    sy = box.sizeY / 2
+    sz = box.sizeZ / 2
+
+    if familyId == :outer_back
+        Pose(0, 0, sz, PC.IDENTITY_ORN)
+    elseif familyId == :inner_back
+        Pose(0, 0, sz, rotateAroundAxis([1, 0, 0], π))
+
+    elseif familyId == :outer_front
+        Pose(0, 0, -sz, rotateAroundAxis([1, 0, 0], π))
+    elseif familyId == :inner_front
+        Pose(0, 0, -sz, PC.IDENTITY_ORN)
+
+    elseif familyId == :outer_left
+        Pose(-sx, 0, 0, rotateAroundAxis([0, 1, 0], -π/2))
+    elseif familyId == :inner_left
+        Pose(-sx, 0, 0, rotateAroundAxis([0, 1, 0], π/2))
+
+    elseif familyId == :outer_right
+        Pose(sx, 0, 0, rotateAroundAxis([0, 1, 0], π/2))
+    elseif familyId == :inner_right
+        Pose(sx, 0, 0, rotateAroundAxis([0, 1, 0], -π/2))
+
+    elseif familyId == :outer_bottom
+        Pose(0, sy, 0, rotateAroundAxis([1, 0, 0], -π/2))
+    elseif familyId == :inner_bottom
+        Pose(0, sy, 0, rotateAroundAxis([1, 0, 0], π/2))
+
+
+    elseif familyId == :outer_top
+        Pose(0, -sy, 0, rotateAroundAxis([1, 0, 0], π/2))
+    elseif familyId == :inner_top
+        Pose(0, -sy, 0, rotateAroundAxis([1, 0, 0], -π/2))
+
+    else
+        error("Invalid contact plane family $familyId")
+    end
+end
+
+const BOX_CONTAINER_SURFACE_IDS = [
+    :outer_top, :outer_bottom, :outer_left, :outer_right, :outer_front, :outer_back,
+    :inner_top, :inner_bottom, :inner_left, :inner_right, :inner_front, :inner_back,
+]
+
