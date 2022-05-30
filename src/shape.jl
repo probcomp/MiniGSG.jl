@@ -97,3 +97,6 @@ const BOX_CONTAINER_SURFACE_IDS = [
     :inner_top, :inner_bottom, :inner_left, :inner_right, :inner_front, :inner_back,
 ]
 
+get_contact_faces(::Box) = BOX_SURFACE_IDS
+get_contact_faces(::BoxContainer) = BOX_SURFACE_IDS
+
