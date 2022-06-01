@@ -98,5 +98,5 @@ const BOX_CONTAINER_SURFACE_IDS = [
 ]
 
 get_contact_faces(::Box) = BOX_SURFACE_IDS
-get_contact_faces(::BoxContainer) = BOX_SURFACE_IDS
+get_contact_faces(::BoxContainer) = BOX_CONTAINER_SURFACE_IDS
 

@@ -19,6 +19,10 @@ function setPose!(g, name, pose::Pose)
     MG.set_prop!(g, g[name, :name], :absolutePose, pose)
 end
 
+set_prop!(g, name, prop, value) = MG.set_prop!(g, g[name, :name], prop, value)
+get_prop(g, name, prop) = MG.get_prop(g, g[name, :name], prop)
+
+
 function setContact!(g, parentName, childName, contact::ShapeContact)
     parent = g[parentName, :name]
     child = g[childName, :name]
