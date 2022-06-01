@@ -1,7 +1,7 @@
 name = "MiniGSG"
 uuid = "888bd7f2-f8c6-44ef-b90f-8999fb25fa02"
 authors = ["Ben Zinberg <bzinberg@alum.mit.edu>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
